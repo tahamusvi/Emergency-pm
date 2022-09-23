@@ -1,0 +1,51 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Swanky Chatbox</title>
+  <link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'><link rel="stylesheet" href="{% static 'epm/style.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class='container' ng-cloak ng-app="chatApp">
+  <h1>Swanky Chatbox UI With Angular</h1>
+  <div class='chatbox' ng-controller="MessageCtrl as chatMessage">
+
+
+
+    <div class='chatbox__user-list'>
+      <h1>User list</h1>
+      <div class='chatbox__user--active'>
+        <p>{{myname}}</p>
+      </div>
+    </div>
+
+
+
+    <div class="chatbox__messages" >
+      <div class="chatbox__messages__user-message">
+        <div class="chatbox__messages__user-message--ind-message">
+          <p class="name">taha</p>
+          <br/>
+          <p class="message">hi babe</p>
+        </div>
+      </div>
+    </div>
+
+
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+      <input type="text" placeholder="">
+      {{form.as_p}}
+      <button>Submit</button>
+    </form>
+  </div>
+<!-- partial -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="{% static 'epm/script.js' %}"></script>
+
+</body>
+</html>

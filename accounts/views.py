@@ -23,7 +23,7 @@ from .models import User
 #----------------------------------------------------------------------------------------------
 def logout(request):
     lgo(request)
-    return redirect('words:panel')
+    return redirect('accounts:login')
 #----------------------------------------------------------------------------------------------
 def Login(request):
     if request.method == 'POST':
@@ -34,7 +34,7 @@ def Login(request):
             if user is not None:
                 lg(request,user)
                 messages.success(request,'you logged in successfully','success')
-                return redirect('words:panel')
+                return redirect('epm:home')
             else:
                 messages.error(request,'username or password is wrong','alert')
     else:
