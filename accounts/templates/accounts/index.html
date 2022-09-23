@@ -28,7 +28,7 @@
     <div class="msg {% if i.us %}right-msg{% else %}left-msg{% endif %}">
       <div
        class="msg-img"
-       style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"
+       style="background-image: url({% if i.us %}{% static 'accounts/m.jfif'%}{% else %}{% static 'accounts/m.jfif'%}{% endif %})"
       ></div>
 
       <div class="msg-bubble">
