@@ -7,7 +7,7 @@
   <title>CodePen - Simple Chat UI</title>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge"><link rel="stylesheet" href="{% static 'epm/style2.css' %}">
+<meta http-equiv="X-UA-Compatible" content="ie=edge"><link rel="stylesheet" href="{% static 'accounts/style2.css' %}">
 
 </head>
 <body>
@@ -17,9 +17,9 @@
     <div class="msger-header-title">
       <i class="fas fa-comment-alt"></i> EPM
     </div>
-    <!-- <div class="msger-header-options">
-      <span><i class="fas fa-cog"></i></span>
-    </div> -->
+    <div class="msger-header-options">
+      <a href="{% url 'accounts:logout' %}">logout</a>
+    </div>
   </header>
 
   <main class="msger-chat">

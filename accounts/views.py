@@ -1,29 +1,14 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from . import forms
-from django.contrib.auth.views import LoginView
-from django.views.generic import (
-            ListView,
-            CreateView,
-            UpdateView,
-            DeleteView,
-            DetailView,)
-from accounts.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render,redirect
-from .forms import *
 from  django.contrib.auth import authenticate
-from  django.contrib.auth import logout as lgo
 from  django.contrib.auth import login as lg
+from .models import *
+from .forms import *
 from django.contrib import messages
-from .models import User
+from  django.contrib.auth import logout as lgo
 #----------------------------------------------------------------------------------------------
 def logout(request):
     lgo(request)
-    return redirect('accounts:login')
+    return redirect('accounts:Login')
 #----------------------------------------------------------------------------------------------
 def Login(request):
     if request.method == 'POST':
@@ -34,28 +19,31 @@ def Login(request):
             if user is not None:
                 lg(request,user)
                 messages.success(request,'you logged in successfully','success')
-                return redirect('epm:home')
+                return redirect('accounts:home')
             else:
                 messages.error(request,'username or password is wrong','alert')
     else:
         form = UserLoginForm
     return render(request,"accounts/Login.html",{'form':form})
 #----------------------------------------------------------------------------------------------
-def SignUp(request):
+def home(request):
     if request.method == 'POST':
-        form = UserSignUpForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            if(cd['password']==cd['password2']):
-                user = User(username=cd['username'])
-                user.set_password(cd['password'])
-                user.save()
-                lg(request,user)
-                return redirect('words:panel')
-            else:
-                messages.error(request,'username or password is wrong','alert')
-    else:
-        form = UserSignUpForm
-    return render(request,"accounts/signup.html",{'form':form})
+        form = EpmForm(request.POST)
 
-#----------------------------------------------------------------------------------------------
+        if form.is_valid():
+            if(request.user.username == 'taha'):
+                newEpm = Epm(text = form.cleaned_data['text'],us=True ).save()
+            else:
+                newEpm = Epm(text = form.cleaned_data['text'],us=False ).save()
+
+            return redirect('accounts:home')
+
+
+
+
+    form = EpmForm()
+    user = request.user
+
+    epms = Epm.objects.all()
+
+    return render(request,'accounts/index.html',{'myname':user.username,'form':form,'epms':epms})
