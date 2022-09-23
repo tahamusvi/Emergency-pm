@@ -8,12 +8,19 @@ def home(request):
         form = EpmForm(request.POST)
 
         if form.is_valid():
-            newEpm = Epm(text = form.cleaned_data['text'],sender=request.user,receiver =request.user ).save()
+            if(request.user.username == 'taha'):
+                newEpm = Epm(text = form.cleaned_data['text'],us=True ).save()
+            else:
+                newEpm = Epm(text = form.cleaned_data['text'],us=False ).save()
+
             return redirect('epm:home')
-        return home(request)
 
 
-    else:
-        form = EpmForm()
-        user = request.user
-        return render(request,'epm/index.html',{'myname':user.username,'form':form})
+
+
+    form = EpmForm()
+    user = request.user
+
+    epms = Epm.objects.all()
+
+    return render(request,'epm/index2.html',{'myname':user.username,'form':form,'epms':epms})

@@ -1,51 +1,67 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Swanky Chatbox</title>
-  <link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'><link rel="stylesheet" href="{% static 'epm/style.css' %}">
+  <title>CodePen - Simple Chat UI</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge"><link rel="stylesheet" href="{% static 'epm/style2.css' %}">
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<div class='container' ng-cloak ng-app="chatApp">
-  <h1>Swanky Chatbox UI With Angular</h1>
-  <div class='chatbox' ng-controller="MessageCtrl as chatMessage">
-
-
-
-    <div class='chatbox__user-list'>
-      <h1>User list</h1>
-      <div class='chatbox__user--active'>
-        <p>{{myname}}</p>
-      </div>
+<section class="msger">
+  <header class="msger-header">
+    <div class="msger-header-title">
+      <i class="fas fa-comment-alt"></i> EPM
     </div>
+    <!-- <div class="msger-header-options">
+      <span><i class="fas fa-cog"></i></span>
+    </div> -->
+  </header>
 
+  <main class="msger-chat">
+    {% for i in epms %}
 
+    <div class="msg {% if i.us %}right-msg{% else %}left-msg{% endif %}">
+      <div
+       class="msg-img"
+       style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"
+      ></div>
 
-    <div class="chatbox__messages" >
-      <div class="chatbox__messages__user-message">
-        <div class="chatbox__messages__user-message--ind-message">
-          <p class="name">taha</p>
-          <br/>
-          <p class="message">hi babe</p>
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name"></div>
+          <div class="msg-info-time">{{i.time}}</div>
+        </div>
+
+        <div class="msg-text">
+          {{i.text}}
         </div>
       </div>
     </div>
 
 
-    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-      <input type="text" placeholder="">
-      {{form.as_p}}
-      <button>Submit</button>
-    </form>
-  </div>
+    {% endfor %}
+
+
+
+
+  </main>
+
+
+  <form class="msger-inputarea" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <input type="text" class="msger-input" placeholder="Enter your message..." name="text">
+
+
+
+    <button type="submit" class="msger-send-btn">Send</button>
+  </form>
+</section>
 <!-- partial -->
-  <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js'></script>
-<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="{% static 'epm/script.js' %}"></script>
+  <!-- <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script><script  src="./script.js"></script> -->
 
 </body>
 </html>
