@@ -5,12 +5,15 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 from  django.contrib.auth import logout as lgo
+from pathlib import Path
 #----------------------------------------------------------------------------------------------
 def logout(request):
     lgo(request)
     return redirect('accounts:Login')
 #----------------------------------------------------------------------------------------------
 def Login(request):
+    BASE_DIR = Path(__file__).resolve().parent
+    print(BASE_DIR)
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
